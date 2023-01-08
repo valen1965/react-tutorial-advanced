@@ -1,40 +1,38 @@
+import { isEditable } from '@testing-library/user-event/dist/utils';
 import React, { useState, useEffect } from 'react';
-const url = 'https://api.github.com/users/QuincyLarson';
+import url from './gitUsers.json';
+
+// const url = 'https://api.github.com/users/QuincyLarson';
+
 const MultipleReturns = () => {
-  const [isloading, setIsLoading]= useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [user, setUser] = useState('default user');
 
-useEffect(() =>{
-fetch(url)
-.then((resp) => {
-  if(resp.status >= 200 && resp.status <=299){
-    return resp.json();
-  } else {
-    setIsLoading(false);
-    setIsError(true);
-    throw new Error(resp.statusText); 
-  }
-})
-.then((user) => {
-  const{ login } = user;
-  setUser(login);
-  setIsLoading(false);
-})
-.catch(error => console.log(error));
-},[]);
+  useEffect(() => {
+    setIsLoading(true);
+    let user = url[99];
+    if (user) {
+      const { login } = user;
+      setUser(login);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+      setIsError(true);
+    }
+  }, []);
 
-  if(isloading) {
+  if (isLoading) {
     return (
       <div>
-        <h2>Loading...</h2>
+        <h1>Loading...</h1>
       </div>
-    );  
+    );
   }
-  if(isError){
-    return(
+  if (isError) {
+    return (
       <div>
-        <h1>Error...</h1>
+        <h2>There is an error</h2>
       </div>
     );
   }
