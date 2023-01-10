@@ -1,5 +1,5 @@
 import React from 'react';
-import Setup from './tutorial/4-forms/setup/2-multiple-inputs';
+import Setup from './tutorial/8-useContext/setup/1-context-api';
 
 function App() {
   return (
